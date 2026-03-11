@@ -1,0 +1,1046 @@
+/* SummerCollection.css - FULL COMPLETE VERSION */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.summer-collection {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #fdfcfb 0%, #f8f9fa 100%);
+  min-height: 100vh;
+}
+
+.summer-collection .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.summer-collection .collection-header {
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.summer-collection .back-button {
+  background: transparent;
+  border: 1px solid #2D3748;
+  color: #2D3748;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-bottom: 30px;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  font-size: 0.9rem;
+}
+
+.summer-collection .back-button:hover {
+  background: #2D3748;
+  color: white;
+}
+
+.summer-collection .header-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #2D3748;
+  font-family: 'Bodoni Moda', serif;
+  background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.summer-collection .header-content p {
+  font-size: 1.2rem;
+  color: #718096;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Style Categories */
+.summer-collection .style-categories {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.summer-collection .style-btn {
+  padding: 10px 24px;
+  border: 2px solid #2D3748;
+  background: transparent;
+  color: #2D3748;
+  border-radius: 25px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  text-transform: capitalize;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.summer-collection .style-btn:hover {
+  background: #2D3748;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.summer-collection .style-btn.active {
+  background: #2D3748;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.summer-collection .summer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.summer-collection .summer-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.summer-collection .summer-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateY(-8px);
+}
+
+.summer-collection .card-image {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.summer-collection .card-image img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.summer-collection .summer-card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+.summer-collection .category-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: #FF6B6B;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  z-index: 2;
+}
+
+/* Style Badge */
+.summer-collection .style-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #2D3748;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.summer-collection .card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.summer-collection .summer-card:hover .card-overlay {
+  opacity: 1;
+}
+
+.summer-collection .quick-view-btn {
+  background: white;
+  color: #2D3748;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.75rem;
+}
+
+.summer-collection .quick-view-btn:hover {
+  background: #2D3748;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.summer-collection .card-content {
+  padding: 20px;
+  text-align: center;
+}
+
+.summer-collection .card-content h3 {
+  margin-bottom: 8px;
+  color: #2D3748;
+  font-size: 1.2rem;
+  font-family: 'Bodoni Moda', serif;
+}
+
+.summer-collection .price {
+  color: #2D3748;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+.summer-collection .add-to-cart-btn {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid #2D3748;
+  color: #2D3748;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.75rem;
+}
+
+.summer-collection .add-to-cart-btn:hover {
+  background: #2D3748;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.summer-collection .summer-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.summer-collection .info-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.summer-collection .info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.summer-collection .info-card h3 {
+  margin-bottom: 15px;
+  color: #2D3748;
+  font-size: 1.3rem;
+}
+
+.summer-collection .info-card p {
+  color: #718096;
+  line-height: 1.6;
+}
+
+/* Quick View Modal Styles - SCOPED */
+.sc-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(20, 20, 30, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  backdrop-filter: blur(8px);
+}
+
+.sc-quick-view-modal {
+  background: white;
+  border-radius: 28px;
+  max-width: 880px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  box-shadow: 0 40px 80px -12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+.sc-quick-view-modal::-webkit-scrollbar {
+  width: 6px;
+}
+.sc-quick-view-modal::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sc-quick-view-modal::-webkit-scrollbar-thumb {
+  background: #E2E8F0;
+  border-radius: 3px;
+}
+
+.sc-close-button {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: white;
+  border: 1.5px solid #E2E8F0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  color: #2D3748;
+  line-height: 1;
+}
+
+.sc-close-button:hover {
+  background: #2D3748;
+  border-color: #2D3748;
+  color: white;
+  transform: rotate(90deg) scale(1.05);
+}
+
+.sc-modal-content {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 0;
+  min-height: 560px;
+}
+
+/* LEFT — image panel with matching gradient */
+.sc-modal-image-section {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 0;
+  background: linear-gradient(160deg, #fdfcfb 0%, #f0f4f8 100%);
+  border-radius: 28px 0 0 28px;
+  overflow: hidden;
+  position: relative;
+}
+
+.sc-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 520px;
+  overflow: hidden;
+  border-radius: 28px 0 0 28px;
+}
+
+.sc-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.sc-image-container:hover img {
+  transform: scale(1.04);
+}
+
+/* Subtle gradient at bottom of image */
+.sc-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.15) 0%,
+    transparent 25%,
+    transparent 65%,
+    rgba(0,0,0,0.25) 100%
+  );
+  border-radius: 28px 0 0 28px;
+}
+
+.sc-image-badges {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 2;
+}
+
+.sc-category-badge,
+.sc-style-badge {
+  padding: 5px 13px;
+  border-radius: 20px;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sc-category-badge {
+  background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+  color: white;
+  box-shadow: 0 4px 14px rgba(255, 107, 107, 0.4);
+}
+
+.sc-style-badge {
+  background: rgba(255, 255, 255, 0.92);
+  color: #2D3748;
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(8px);
+}
+
+/* RIGHT — details panel */
+.sc-modal-details {
+  padding: 36px 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #ffffff;
+  border-radius: 0 28px 28px 0;
+  border-left: 1px solid #f1f5f9;
+}
+
+.sc-detail-header {
+  text-align: left;
+  padding-bottom: 18px;
+  border-bottom: 1.5px solid #f1f5f9;
+}
+
+.sc-detail-header h2 {
+  font-size: 1.75rem;
+  color: #2D3748;
+  margin-bottom: 8px;
+  font-family: 'Bodoni Moda', serif;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.sc-modal-price {
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sc-modal-description {
+  color: #718096;
+  line-height: 1.7;
+  font-size: 0.92rem;
+  text-align: left;
+  margin: 0;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #fdfcfb 0%, #f8f9fa 100%);
+  border-radius: 12px;
+  border-left: 3px solid #FF6B6B;
+}
+
+.sc-selection-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Size & Color sections */
+.sc-detail-section {
+  background: #fafbfc;
+  padding: 16px 18px;
+  border-radius: 16px;
+  border: 1.5px solid #edf2f7;
+  transition: border-color 0.2s ease;
+}
+
+.sc-detail-section:focus-within {
+  border-color: #4ECDC4;
+}
+
+.sc-detail-section h4 {
+  color: #2D3748;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sc-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.sc-section-header h4 {
+  color: #2D3748;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sc-size-guide {
+  color: #4ECDC4;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Size buttons — pill row */
+.sc-size-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sc-size-btn {
+  padding: 8px 16px;
+  border: 1.5px solid #E2E8F0;
+  background: white;
+  border-radius: 25px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.82rem;
+  transition: all 0.2s ease;
+  color: #4A5568;
+  min-width: 46px;
+  text-align: center;
+}
+
+.sc-size-btn:hover {
+  border-color: #4ECDC4;
+  color: #2D3748;
+  transform: translateY(-1px);
+}
+
+.sc-size-btn.selected {
+  background: linear-gradient(135deg, #2D3748, #4A5568);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(45, 55, 72, 0.28);
+}
+
+/* Color buttons — compact horizontal chips */
+.sc-color-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sc-color-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1.5px solid #E2E8F0;
+  background: white;
+  border-radius: 25px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 0.82rem;
+  transition: all 0.2s ease;
+  color: #4A5568;
+  white-space: nowrap;
+}
+
+.sc-color-btn:hover {
+  border-color: #4ECDC4;
+  color: #2D3748;
+  transform: translateY(-1px);
+}
+
+.sc-color-btn.selected {
+  background: #2D3748;
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(45, 55, 72, 0.25);
+}
+
+.sc-color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+  flex-shrink: 0;
+  border: 1.5px solid rgba(255,255,255,0.8);
+  box-shadow: 0 0 0 1px #E2E8F0;
+}
+
+/* Product info card — matches info-card style from page */
+.sc-product-info-card {
+  background: linear-gradient(135deg, #fdfcfb 0%, #f8f9fa 100%);
+  padding: 18px 20px;
+  border-radius: 16px;
+  border: 1.5px solid #edf2f7;
+}
+
+.sc-product-info-card h4 {
+  color: #2D3748;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 14px;
+  text-align: left;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sc-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sc-info-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #f1f5f9;
+}
+
+.sc-info-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.sc-info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sc-info-label {
+  font-weight: 600;
+  color: #2D3748;
+  font-size: 0.8rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sc-info-value {
+  color: #718096;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+/* CTA button — matches card button gradient */
+.sc-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.sc-modal-add-to-cart {
+  background: linear-gradient(135deg, #2D3748 0%, #4A5568 100%);
+  color: white;
+  border: none;
+  padding: 16px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 16px rgba(45, 55, 72, 0.3);
+}
+
+.sc-modal-add-to-cart:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1A202C 0%, #2D3748 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(45, 55, 72, 0.4);
+}
+
+.sc-modal-add-to-cart:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.sc-wishlist-btn {
+  background: transparent;
+  color: #2D3748;
+  border: 1.5px solid #E2E8F0;
+  padding: 14px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.sc-wishlist-btn:hover {
+  border-color: #FF6B6B;
+  color: #FF6B6B;
+  background: rgba(255, 107, 107, 0.04);
+  transform: translateY(-1px);
+}
+
+.sc-cart-icon,
+.sc-heart-icon {
+  font-size: 1rem;
+}
+
+/* ── Add these to your existing Dress.css ──────────────────────────────────── */
+
+/* Skeleton loading */
+.sc-skeleton { pointer-events: none; }
+
+.sc-sk-img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: rgba(0,0,0,0.08);
+  animation: scPulse 1.4s ease-in-out infinite;
+  border-radius: 12px 12px 0 0;
+}
+
+.sc-sk-line {
+  height: 14px;
+  border-radius: 7px;
+  background: rgba(0,0,0,0.08);
+  animation: scPulse 1.4s ease-in-out infinite;
+  margin-bottom: 10px;
+}
+.sc-sk-long  { width: 80%; }
+.sc-sk-short { width: 40%; }
+.sc-sk-btn   {
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.08);
+  animation: scPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes scPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* Error & empty states */
+.sc-error {
+  text-align: center;
+  padding: 20px;
+  color: #e53e3e;
+  background: #fff5f5;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+.sc-error button {
+  margin-left: 8px;
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #e53e3e;
+}
+
+.sc-empty {
+  text-align: center;
+  padding: 60px;
+  color: #999;
+  font-size: 16px;
+  grid-column: 1 / -1;
+}
+
+/* Out of stock badge */
+.sc-out-of-stock-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Image thumbnails in modal */
+.sc-thumbnails {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.sc-thumb {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.15s;
+}
+.sc-thumb.active {
+  border-color: #000;
+}
+
+/* Collection count badge on Collection page */
+.collection-count-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+/* Filter count pill */
+.filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.12);
+  font-size: 10px;
+  font-weight: 700;
+  margin-left: 6px;
+}
+
+/* Responsive Design for Modal */
+@media (max-width: 768px) {
+  .sc-modal-content {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .sc-modal-image-section {
+    border-radius: 28px 28px 0 0;
+  }
+
+  .sc-image-container {
+    min-height: 320px;
+    height: 320px;
+    border-radius: 28px 28px 0 0;
+  }
+
+  .sc-image-container img {
+    height: 320px;
+  }
+
+  .sc-image-overlay {
+    border-radius: 28px 28px 0 0;
+  }
+
+  .sc-modal-details {
+    padding: 28px 24px;
+    border-radius: 0 0 28px 28px;
+    border-left: none;
+    border-top: 1px solid #f1f5f9;
+  }
+
+  .sc-detail-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .sc-modal-price {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sc-quick-view-modal {
+    max-height: 95vh;
+    border-radius: 20px;
+  }
+
+  .sc-modal-image-section {
+    border-radius: 20px 20px 0 0;
+  }
+
+  .sc-image-container {
+    min-height: 260px;
+    height: 260px;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .sc-image-container img {
+    height: 260px;
+  }
+
+  .sc-image-overlay {
+    border-radius: 20px 20px 0 0;
+  }
+
+  .sc-modal-details {
+    padding: 22px 18px;
+    gap: 16px;
+    border-radius: 0 0 20px 20px;
+  }
+
+  .sc-detail-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .sc-modal-add-to-cart,
+  .sc-wishlist-btn {
+    padding: 14px 20px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .summer-collection {
+    padding: 60px 0;
+  }
+  
+  .summer-collection .header-content h1 {
+    font-size: 2.5rem;
+  }
+  
+  .summer-collection .summer-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .summer-collection .card-image img {
+    height: 300px;
+  }
+  
+  .summer-collection .style-categories {
+    gap: 10px;
+  }
+  
+  .summer-collection .style-btn {
+    padding: 8px 18px;
+    font-size: 0.8rem;
+  }
+  
+  .summer-collection .info-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .summer-collection .header-content h1 {
+    font-size: 2rem;
+  }
+  
+  .summer-collection .header-content p {
+    font-size: 1rem;
+  }
+  
+  .summer-collection .summer-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .summer-collection .summer-info {
+    grid-template-columns: 1fr;
+  }
+  
+  .summer-collection .style-categories {
+    gap: 8px;
+  }
+  
+  .summer-collection .style-btn {
+    padding: 8px 16px;
+    font-size: 0.75rem;
+  }
+  
+  .summer-collection .style-badge {
+    top: 10px;
+    right: 10px;
+    font-size: 0.65rem;
+    padding: 4px 10px;
+  }
+  
+  .summer-collection .category-badge {
+    top: 10px;
+    left: 10px;
+    font-size: 0.65rem;
+    padding: 4px 10px;
+  }
+  
+  .summer-collection .card-content {
+    padding: 15px;
+  }
+  
+  .summer-collection .card-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .summer-collection .price {
+    font-size: 1rem;
+  }
+  
+  .product-info {
+    padding: 15px;
+  }
+  
+  .info-row {
+    flex-direction: column;
+    gap: 5px;
+  }
+}

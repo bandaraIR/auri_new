@@ -1,0 +1,328 @@
+/* CasualCollection.css - UPDATED (REMOVED DESCRIPTION) */
+.casual-collection {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #fdfcfb 0%, #f8f9fa 100%);
+  min-height: 100vh;
+}
+
+.collection-header {
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.back-button {
+  background: transparent;
+  border: 1px solid var(--dark);
+  color: var(--dark);
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-bottom: 30px;
+  font-family: 'Poppins', sans-serif;
+  transition: var(--transition);
+  align-self: flex-start;
+}
+
+.back-button:hover {
+  background: var(--dark);
+  color: white;
+}
+
+.header-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: var(--dark);
+  font-family: 'Bodoni Moda', serif;
+  background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-content p {
+  font-size: 1.2rem;
+  color: var(--gray);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.casual-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.casual-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.casual-card:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-8px);
+}
+
+.card-image {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.card-image img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.casual-card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+.category-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: var(--primary);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  z-index: 2;
+}
+
+/* Style Badge - Add this to match SummerCollection */
+.style-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--dark);
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.casual-card:hover .card-overlay {
+  opacity: 1;
+}
+
+.quick-view-btn {
+  background: white;
+  color: var(--dark);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.75rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.quick-view-btn:hover {
+  background: var(--dark);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.card-content {
+  padding: 24px 20px;
+  text-align: center;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-content h3 {
+  color: var(--dark);
+  font-size: 1.2rem;
+  font-family: 'Bodoni Moda', serif;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* PRICE STYLING - ENHANCED */
+.price {
+  color: var(--dark);
+  font-weight: 600;
+  font-size: 1.2rem;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+.add-to-cart-btn {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid var(--dark);
+  color: var(--dark);
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.75rem;
+  box-shadow: var(--shadow-sm);
+  margin-top: 8px;
+}
+
+.add-to-cart-btn:hover {
+  background: var(--dark);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.casual-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.feature-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.feature-card h3 {
+  margin-bottom: 15px;
+  color: var(--dark);
+  font-size: 1.3rem;
+  font-family: 'Bodoni Moda', serif;
+}
+
+.feature-card p {
+  color: var(--gray);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .casual-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .casual-collection {
+    padding: 60px 0;
+  }
+  
+  .header-content h1 {
+    font-size: 2.5rem;
+  }
+  
+  .casual-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .card-image img {
+    height: 300px;
+  }
+
+  .card-content {
+    padding: 20px 15px;
+    gap: 10px;
+  }
+  
+  .casual-features {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .casual-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .card-image img {
+    height: 250px;
+  }
+  
+  .header-content h1 {
+    font-size: 2rem;
+  }
+  
+  .header-content p {
+    font-size: 1rem;
+  }
+  
+  .feature-card {
+    padding: 25px 20px;
+  }
+  
+  .back-button {
+    padding: 10px 20px;
+    font-size: 0.8rem;
+  }
+  
+  .card-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .price {
+    font-size: 1.1rem;
+  }
+}

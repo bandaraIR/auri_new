@@ -1,0 +1,174 @@
+/* App.css - Enhanced Responsive Section */
+@import url('https://fonts.googleapis.com/css2?family=Prata&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --primary: #2c2c2c;
+  --primary-light: #555555;
+  --primary-dark: #000000;
+  --secondary: #f8f8f8;
+  --dark: #1a1a1a;
+  --light: #ffffff;
+  --gray: #666666;
+  --transition: all 0.3s ease;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 15px 50px rgba(0, 0, 0, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--light);
+  color: var(--dark);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Prata', serif;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+/* Enhanced Section Padding for Responsive */
+section {
+  padding: 80px 5%;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: var(--transition);
+  display: inline-block;
+  text-decoration: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  box-shadow: none;
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.section-title h2 {
+  font-size: 2.8rem;
+  color: var(--dark);
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 1px;
+  background: var(--primary);
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced Responsive Media Queries */
+@media (max-width: 1200px) {
+  section {
+    padding: 70px 4%;
+  }
+  
+  .container {
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 968px) {
+  html {
+    font-size: 15px;
+  }
+  
+  section {
+    padding: 60px 3%;
+  }
+  
+  .section-title h2 {
+    font-size: 2.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+  
+  section {
+    padding: 50px 2%;
+  }
+  
+  .section-title h2 {
+    font-size: 2rem;
+  }
+  
+  .container {
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 13px;
+  }
+  
+  section {
+    padding: 40px 2%;
+  }
+  
+  .section-title h2 {
+    font-size: 1.8rem;
+  }
+}

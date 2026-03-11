@@ -1,0 +1,452 @@
+/* Collection.css - UPGRADED */
+.collection {
+  background: var(--light);
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.collection-filters {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+  padding: 0 10px;
+}
+
+.filter-btn {
+  padding: 12px 24px;
+  border: 1px solid var(--dark);
+  background: transparent;
+  color: var(--dark);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 400;
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.75rem;
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--dark);
+  color: white;
+  border-color: var(--dark);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.card {
+  background: var(--light);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-8px);
+}
+
+.card-image {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.card img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.card:hover img {
+  transform: scale(1.05);
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: var(--transition);
+  border-radius: 16px 16px 0 0;
+  backdrop-filter: blur(2px);
+}
+
+.card:hover .card-overlay {
+  opacity: 1;
+}
+
+.quick-view-btn {
+  background: var(--light);
+  color: var(--dark);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.75rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.quick-view-btn:hover {
+  background: var(--dark);
+  color: white;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.card-content {
+  padding: 24px;
+  text-align: center;
+  background: var(--light);
+  border-radius: 0 0 16px 16px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-content h3 {
+  margin-bottom: 12px;
+  color: var(--dark);
+  font-size: 1.3rem;
+  font-family: 'Bodoni Moda', serif;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  line-height: 1.3;
+}
+
+/* NEW: Description Styles */
+.description {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+/* NEW: Explore Button Styles */
+.explore-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--dark) 0%, #5a4fcf 100%);
+  border: none;
+  color: white;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-size: 0.8rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.explore-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.explore-btn:hover::before {
+  left: 100%;
+}
+
+.explore-btn:hover {
+  background: linear-gradient(135deg, #5a4fcf 0%, var(--dark) 100%);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.explore-btn:active {
+  transform: translateY(0);
+}
+
+/* NEW: Price styles removed since we're using description */
+.price {
+  display: none;
+}
+
+/* NEW: Collection CTA Section */
+.collection-cta {
+  margin-top: 60px;
+  padding: 40px 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.collection-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--dark), transparent);
+}
+
+.collection-cta .btn {
+  box-shadow: var(--shadow-lg);
+  border-radius: 25px;
+  padding: 16px 40px;
+  font-size: 0.9rem;
+  background: var(--dark);
+  border: none;
+  position: relative;
+  z-index: 1;
+}
+
+.collection-cta .btn:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-2px);
+}
+
+/* NEW: Enhanced card hover effects */
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--dark), #5a4fcf, var(--dark));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.card:hover::after {
+  transform: scaleX(1);
+}
+
+/* NEW: Loading animation for cards */
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: cardFadeIn 0.6s ease-out;
+}
+
+/* Enhanced responsive styles */
+@media (max-width: 1024px) {
+  .collection-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+  }
+  
+  .card-content {
+    padding: 20px;
+  }
+  
+  .description {
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .collection-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .collection-filters {
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+
+  .filter-btn {
+    padding: 10px 18px;
+    font-size: 0.7rem;
+    letter-spacing: 0.3px;
+  }
+
+  .card {
+    border-radius: 12px;
+  }
+
+  .card-content {
+    border-radius: 0 0 12px 12px;
+    padding: 18px;
+  }
+
+  .card-overlay {
+    border-radius: 12px 12px 0 0;
+  }
+  
+  .card img {
+    height: 300px;
+  }
+  
+  .card-content h3 {
+    font-size: 1.2rem;
+  }
+  
+  .description {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+  
+  .explore-btn {
+    padding: 12px;
+    font-size: 0.75rem;
+  }
+  
+  .collection-cta {
+    margin-top: 40px;
+    padding: 30px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .collection-grid {
+    gap: 15px;
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .card img {
+    height: 280px;
+  }
+  
+  .collection-filters {
+    gap: 6px;
+  }
+  
+  .filter-btn {
+    padding: 8px 16px;
+    font-size: 0.65rem;
+  }
+  
+  .card-content {
+    padding: 16px;
+  }
+  
+  .card-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .description {
+    font-size: 0.8rem;
+    margin-bottom: 14px;
+  }
+  
+  .explore-btn,
+  .quick-view-btn {
+    padding: 12px;
+    font-size: 0.7rem;
+  }
+  
+  .collection-cta .btn {
+    padding: 14px 32px;
+    font-size: 0.8rem;
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .collection-cta {
+    margin-top: 30px;
+    padding: 25px 0;
+    border-radius: 16px;
+  }
+}
+
+
+
+/* NEW: Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card img,
+  .card-overlay,
+  .filter-btn,
+  .explore-btn,
+  .quick-view-btn {
+    transition: none;
+  }
+  
+  .card:hover {
+    transform: none;
+  }
+  
+  .explore-btn::before {
+    display: none;
+  }
+}
+
+/* NEW: Focus styles for better accessibility */
+.filter-btn:focus,
+.explore-btn:focus,
+.quick-view-btn:focus {
+  outline: 2px solid var(--dark);
+  outline-offset: 2px;
+}
+
+/* NEW: Print styles */
+@media print {
+  .collection-filters,
+  .card-overlay,
+  .explore-btn {
+    display: none;
+  }
+  
+  .card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}
