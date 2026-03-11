@@ -15,9 +15,13 @@ const connectDB = require("./config/db");
 connectDB();
 
 const app = express();
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://auri-new.vercel.app",
+];
 
 app.use(cors({
-  origin: process.env.CLIENT_URL,
+  origin: allowedOrigins,
   credentials: true,
 }));
 app.use(express.json());
