@@ -25,6 +25,7 @@ const ICO = {
   dollar:  "M12 1v22 M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6",
   layers:  "M12 2L2 7l10 5 10-5-10-5z M2 17l10 5 10-5 M2 12l10 5 10-5",
   star:    "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
+  swap:    "M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4",
 };
 
 // ── Constants ─────────────────────────────────────────────────────────────────
@@ -69,54 +70,146 @@ const SuccessToast = ({ product, onClose }) => (
   </div>
 );
 
+// ── Color-linked image slot ───────────────────────────────────────────────────
+// Each color gets its own upload slot so the order is explicit.
+const ColorImageSlot = ({ color, index, image, onUpload, onRemove }) => {
+  const swatch = COLOR_SWATCHES[color] || "#888";
+
+  const handleFile = (e) => {
+    const file = e.target.files?.[0];
+    if (file && file.type.startsWith("image/")) {
+      onUpload(index, file);
+    }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file && file.type.startsWith("image/")) {
+      onUpload(index, file);
+    }
+  };
+
+  return (
+    <div className="apg-color-slot">
+      {/* Color label */}
+      <div className="apg-slot-label">
+        <span className="apg-slot-swatch" style={{ background: swatch }} />
+        <span className="apg-slot-name">{color}</span>
+        <span className="apg-slot-index">Image {index + 1}</span>
+      </div>
+
+      {/* Upload area */}
+      {image ? (
+        <div className="apg-slot-preview">
+          <img src={image.url} alt={color} />
+          <div className="apg-slot-overlay">
+            <button
+              type="button"
+              className="apg-slot-remove"
+              onClick={() => onRemove(index)}
+              title="Remove image"
+            >
+              <Icon d={ICO.x} size={12} />
+            </button>
+            {/* Replace button */}
+            <label className="apg-slot-replace" title="Replace image">
+              <Icon d={ICO.swap} size={12} />
+              <input
+                type="file" accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleFile}
+              />
+            </label>
+          </div>
+          <div className="apg-slot-badge">✓</div>
+        </div>
+      ) : (
+        <label
+          className="apg-slot-dropzone"
+          onDragOver={e => e.preventDefault()}
+          onDrop={handleDrop}
+        >
+          <input
+            type="file" accept="image/*"
+            style={{ display: "none" }}
+            onChange={handleFile}
+          />
+          <Icon d={ICO.upload} size={22} />
+          <span>Upload for <strong>{color}</strong></span>
+          <span className="apg-slot-hint">or drag &amp; drop</span>
+        </label>
+      )}
+    </div>
+  );
+};
+
 // ── Main Component ────────────────────────────────────────────────────────────
 export default function AddProduct() {
   const navigate = useNavigate();
 
-  const [form, setForm]           = useState(EMPTY_FORM);
+  const [form, setForm]               = useState(EMPTY_FORM);
   const [customColor, setCustomColor] = useState("");
-  const [images, setImages]       = useState([]);
-  const [dragOver, setDragOver]   = useState(false);
-  const [loading, setLoading]     = useState(false);
-  const [errors, setErrors]       = useState({});
-  const [toast, setToast]         = useState(null); // { name: "Product Name" }
+  // colorImages: array aligned with form.colors — colorImages[i] is the image for colors[i]
+  const [colorImages, setColorImages] = useState([]);
+  const [loading, setLoading]         = useState(false);
+  const [errors, setErrors]           = useState({});
+  const [toast, setToast]             = useState(null);
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
-  const toggleArr = (k, val) =>
+  // ── Toggle size ─────────────────────────────────────────────────────────────
+  const toggleSize = (val) =>
     setForm(f => ({
       ...f,
-      [k]: f[k].includes(val) ? f[k].filter(x => x !== val) : [...f[k], val],
+      sizes: f.sizes.includes(val)
+        ? f.sizes.filter(x => x !== val)
+        : [...f.sizes, val],
     }));
+
+  // ── Toggle color — also keeps colorImages array in sync ─────────────────────
+  const toggleColor = (color) => {
+    setForm(f => {
+      const exists = f.colors.includes(color);
+      if (exists) {
+        const idx = f.colors.indexOf(color);
+        // Remove from colorImages too
+        setColorImages(prev => prev.filter((_, i) => i !== idx));
+        return { ...f, colors: f.colors.filter(c => c !== color) };
+      } else {
+        setColorImages(prev => [...prev, null]); // placeholder for new color
+        return { ...f, colors: [...f.colors, color] };
+      }
+    });
+  };
 
   // ── Custom color ────────────────────────────────────────────────────────────
   const addCustomColor = () => {
     const c = customColor.trim();
     if (c && !form.colors.includes(c)) {
       setForm(f => ({ ...f, colors: [...f.colors, c] }));
+      setColorImages(prev => [...prev, null]);
       setCustomColor("");
     }
   };
 
-  // ── Image handling ──────────────────────────────────────────────────────────
-  const handleFiles = (fileList) => {
-    const files    = Array.from(fileList).filter(f => f.type.startsWith("image/"));
-    const previews = files.map(f => ({
-      file: f,
-      url:  URL.createObjectURL(f),
-      name: f.name,
-    }));
-    setImages(prev => [...prev, ...previews]);
+  // ── Image slot handlers ──────────────────────────────────────────────────────
+  const handleSlotUpload = (index, file) => {
+    const url = URL.createObjectURL(file);
+    setColorImages(prev => {
+      const next = [...prev];
+      next[index] = { file, url, name: file.name };
+      return next;
+    });
   };
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setDragOver(false);
-    handleFiles(e.dataTransfer.files);
+  const handleSlotRemove = (index) => {
+    setColorImages(prev => {
+      const next = [...prev];
+      next[index] = null;
+      return next;
+    });
   };
-
-  const removeImage = (idx) =>
-    setImages(prev => prev.filter((_, i) => i !== idx));
 
   // ── Validation ──────────────────────────────────────────────────────────────
   const validate = () => {
@@ -141,7 +234,6 @@ export default function AddProduct() {
     try {
       const token = localStorage.getItem("token");
 
-      // Build FormData (required for file uploads)
       const formData = new FormData();
       formData.append("name",        form.name);
       formData.append("category",    form.category);
@@ -153,27 +245,29 @@ export default function AddProduct() {
       formData.append("sizes",       JSON.stringify(form.sizes));
       formData.append("colors",      JSON.stringify(form.colors));
 
-      // Append each image file
-      images.forEach(img => formData.append("images", img.file));
+      // Append images in color order — missing slots send a blank marker
+      // so the backend keeps the index alignment intact.
+      colorImages.forEach((img, i) => {
+        if (img?.file) {
+          formData.append("images", img.file);
+        }
+        // If no image for this color slot, we skip it.
+        // The backend will store images in upload order = color order.
+      });
 
       const res = await fetch(`${API}/api/products/admin`, {
         method:  "POST",
-        headers: { Authorization: `Bearer ${token}` }, // NO Content-Type — browser sets multipart boundary
+        headers: { Authorization: `Bearer ${token}` },
         body:    formData,
       });
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Failed to add product");
 
-      // Show success toast with product name
       const savedName = form.name;
       setToast({ name: savedName });
-
-      // Reset form
       setForm(EMPTY_FORM);
-      setImages([]);
-
-      // Auto-dismiss toast after 4 seconds
+      setColorImages([]);
       setTimeout(() => setToast(null), 4000);
 
     } catch (err) {
@@ -186,7 +280,7 @@ export default function AddProduct() {
   // ── Clear ───────────────────────────────────────────────────────────────────
   const handleClear = () => {
     setForm(EMPTY_FORM);
-    setImages([]);
+    setColorImages([]);
     setErrors({});
   };
 
@@ -196,14 +290,16 @@ export default function AddProduct() {
     ...form.colors.filter(c => !COLORS_DEFAULT.includes(c)),
   ];
 
+  const uploadedCount = colorImages.filter(Boolean).length;
+
   const checklist = [
-    { label: "Product name",  done: !!form.name.trim() },
-    { label: "Category",      done: !!form.category },
-    { label: "Price set",     done: !!form.price && !isNaN(Number(form.price)) },
-    { label: "Description",   done: !!form.description.trim() },
-    { label: "Sizes chosen",  done: form.sizes.length > 0 },
-    { label: "Colors chosen", done: form.colors.length > 0 },
-    { label: "Images added",  done: images.length > 0 },
+    { label: "Product name",    done: !!form.name.trim() },
+    { label: "Category",        done: !!form.category },
+    { label: "Price set",       done: !!form.price && !isNaN(Number(form.price)) },
+    { label: "Description",     done: !!form.description.trim() },
+    { label: "Sizes chosen",    done: form.sizes.length > 0 },
+    { label: "Colors chosen",   done: form.colors.length > 0 },
+    { label: "Images uploaded", done: uploadedCount > 0 },
   ];
 
   const completedCount = checklist.filter(c => c.done).length;
@@ -213,15 +309,10 @@ export default function AddProduct() {
   return (
     <div className="apg-page">
 
-      {/* ── Success Toast ── */}
       {toast && (
-        <SuccessToast
-          product={toast.name}
-          onClose={() => setToast(null)}
-        />
+        <SuccessToast product={toast.name} onClose={() => setToast(null)} />
       )}
 
-      {/* ── Header ── */}
       <header className="apg-header">
         <div className="apg-header-left">
           <button className="apg-back-btn" onClick={() => navigate(-1)}>
@@ -238,7 +329,6 @@ export default function AddProduct() {
         </div>
       </header>
 
-      {/* ── Body ── */}
       <div className="apg-layout">
 
         {/* ── Left: Form ── */}
@@ -248,7 +338,6 @@ export default function AddProduct() {
             <p>Fill in the details below to list a new item in the store.</p>
           </div>
 
-          {/* API / submit error banner */}
           {errors.submit && (
             <div className="apg-error-banner">
               <Icon d={ICO.info} size={15} /> {errors.submit}
@@ -257,7 +346,7 @@ export default function AddProduct() {
 
           <form className="apg-form" onSubmit={handleSubmit} noValidate>
 
-            {/* ── Section: Basic Info ── */}
+            {/* ── Basic Info ── */}
             <section className="apg-section">
               <div className="apg-section-title">
                 <Icon d={ICO.tag} size={14} /> Basic Information
@@ -265,9 +354,7 @@ export default function AddProduct() {
 
               <div className="apg-grid-2">
                 <div className="apg-field">
-                  <label className="apg-label">
-                    Product Name <span className="apg-req">*</span>
-                  </label>
+                  <label className="apg-label">Product Name <span className="apg-req">*</span></label>
                   <input
                     value={form.name}
                     onChange={e => set("name", e.target.value)}
@@ -278,9 +365,7 @@ export default function AddProduct() {
                 </div>
 
                 <div className="apg-field">
-                  <label className="apg-label">
-                    Category <span className="apg-req">*</span>
-                  </label>
+                  <label className="apg-label">Category <span className="apg-req">*</span></label>
                   <select
                     value={form.category}
                     onChange={e => set("category", e.target.value)}
@@ -294,9 +379,7 @@ export default function AddProduct() {
               </div>
 
               <div className="apg-field">
-                <label className="apg-label">
-                  Description <span className="apg-req">*</span>
-                </label>
+                <label className="apg-label">Description <span className="apg-req">*</span></label>
                 <textarea
                   rows={3}
                   value={form.description}
@@ -327,7 +410,7 @@ export default function AddProduct() {
               </div>
             </section>
 
-            {/* ── Section: Pricing & Stock ── */}
+            {/* ── Pricing & Stock ── */}
             <section className="apg-section">
               <div className="apg-section-title">
                 <Icon d={ICO.dollar} size={14} /> Pricing &amp; Stock
@@ -335,9 +418,7 @@ export default function AddProduct() {
 
               <div className="apg-grid-2">
                 <div className="apg-field">
-                  <label className="apg-label">
-                    Price ($) <span className="apg-req">*</span>
-                  </label>
+                  <label className="apg-label">Price (Rs) <span className="apg-req">*</span></label>
                   <input
                     type="number" min="0" step="0.01"
                     value={form.price}
@@ -360,7 +441,7 @@ export default function AddProduct() {
               </div>
             </section>
 
-            {/* ── Section: Variants ── */}
+            {/* ── Variants ── */}
             <section className="apg-section">
               <div className="apg-section-title">
                 <Icon d={ICO.layers} size={14} /> Variants
@@ -368,15 +449,13 @@ export default function AddProduct() {
 
               {/* Sizes */}
               <div className="apg-field">
-                <label className="apg-label">
-                  Sizes <span className="apg-req">*</span>
-                </label>
+                <label className="apg-label">Sizes <span className="apg-req">*</span></label>
                 <div className="apg-size-group">
                   {SIZES.map(s => (
                     <button
                       type="button" key={s}
                       className={`apg-size-chip ${form.sizes.includes(s) ? "active" : ""}`}
-                      onClick={() => toggleArr("sizes", s)}
+                      onClick={() => toggleSize(s)}
                     >
                       {s}
                     </button>
@@ -387,15 +466,13 @@ export default function AddProduct() {
 
               {/* Colors */}
               <div className="apg-field">
-                <label className="apg-label">
-                  Colors <span className="apg-req">*</span>
-                </label>
+                <label className="apg-label">Colors <span className="apg-req">*</span></label>
                 <div className="apg-color-group">
                   {allColors.map(c => (
                     <button
                       type="button" key={c}
                       className={`apg-color-btn ${form.colors.includes(c) ? "active" : ""}`}
-                      onClick={() => toggleArr("colors", c)}
+                      onClick={() => toggleColor(c)}
                     >
                       <span
                         className="apg-color-swatch"
@@ -423,44 +500,40 @@ export default function AddProduct() {
               </div>
             </section>
 
-            {/* ── Section: Images ── */}
+            {/* ── Images — one slot per color ── */}
             <section className="apg-section">
               <div className="apg-section-title">
                 <Icon d={ICO.image} size={14} /> Product Images
               </div>
 
-              <div
-                className={`apg-dropzone ${dragOver ? "drag-over" : ""}`}
-                onDragOver={e => { e.preventDefault(); setDragOver(true); }}
-                onDragLeave={() => setDragOver(false)}
-                onDrop={handleDrop}
-              >
-                <input
-                  type="file" multiple accept="image/*"
-                  onChange={e => handleFiles(e.target.files)}
-                />
-                <Icon d={ICO.upload} size={28} />
-                <span className="apg-dz-text">
-                  Drag &amp; drop images here, or <u>browse</u>
-                </span>
-                <span className="apg-dz-sub">JPG, PNG — up to 10 MB each</span>
-              </div>
-
-              {images.length > 0 && (
-                <div className="apg-previews">
-                  {images.map((img, i) => (
-                    <div className="apg-thumb" key={i}>
-                      <img src={img.url} alt={img.name} />
-                      <button
-                        type="button"
-                        className="apg-thumb-remove"
-                        onClick={() => removeImage(i)}
-                      >
-                        <Icon d={ICO.x} size={10} />
-                      </button>
-                    </div>
-                  ))}
+              {form.colors.length === 0 ? (
+                <div className="apg-slot-placeholder">
+                  <Icon d={ICO.info} size={16} />
+                  Select colors above — each color will get its own image slot.
                 </div>
+              ) : (
+                <>
+                  <p className="apg-slot-intro">
+                    Upload one image per color. The image order matches the color order exactly,
+                    so customers see the correct photo when they select a color.
+                  </p>
+                  <div className="apg-color-slots">
+                    {form.colors.map((color, i) => (
+                      <ColorImageSlot
+                        key={color}
+                        color={color}
+                        index={i}
+                        image={colorImages[i]}
+                        onUpload={handleSlotUpload}
+                        onRemove={handleSlotRemove}
+                      />
+                    ))}
+                  </div>
+                  <p className="apg-slot-note">
+                    💡 {uploadedCount} of {form.colors.length} color image{form.colors.length !== 1 ? "s" : ""} uploaded.
+                    Colors without an image will show the first available image.
+                  </p>
+                </>
               )}
             </section>
 
@@ -486,10 +559,9 @@ export default function AddProduct() {
           </form>
         </div>
 
-        {/* ── Right: Sidebar ── */}
+        {/* ── Sidebar ── */}
         <aside className="apg-sidebar">
 
-          {/* Progress */}
           <div className="apg-card">
             <div className="apg-card-title">Completion</div>
             <div className="apg-progress-wrap">
@@ -505,35 +577,30 @@ export default function AddProduct() {
             </div>
           </div>
 
-          {/* Live preview */}
           <div className="apg-card">
             <div className="apg-card-title">Live Preview</div>
             <div className={`apg-prev-name ${!form.name ? "empty" : ""}`}>
               {form.name || "Product name…"}
             </div>
             <div className={`apg-prev-price ${!form.price ? "empty" : ""}`}>
-              {form.price ? `$${parseFloat(form.price).toFixed(2)}` : "Price…"}
+              {form.price ? `Rs ${parseFloat(form.price).toLocaleString()}` : "Price…"}
             </div>
 
             {form.category && (
               <div className="apg-prev-row">
-                <span>Category</span>
-                <span>{form.category}</span>
+                <span>Category</span><span>{form.category}</span>
               </div>
             )}
             {form.stock && (
               <div className="apg-prev-row">
-                <span>In stock</span>
-                <span>{form.stock} units</span>
+                <span>In stock</span><span>{form.stock} units</span>
               </div>
             )}
             {form.sizes.length > 0 && (
               <div className="apg-prev-row">
                 <span>Sizes</span>
                 <div className="apg-prev-sizes">
-                  {form.sizes.map(s => (
-                    <span key={s} className="apg-prev-size">{s}</span>
-                  ))}
+                  {form.sizes.map(s => <span key={s} className="apg-prev-size">{s}</span>)}
                 </div>
               </div>
             )}
@@ -554,14 +621,30 @@ export default function AddProduct() {
             )}
             {form.material && (
               <div className="apg-prev-row">
-                <span>Material</span>
-                <span>{form.material}</span>
+                <span>Material</span><span>{form.material}</span>
               </div>
             )}
-            {images.length > 0 && (
+            {uploadedCount > 0 && (
               <div className="apg-prev-row">
                 <span>Images</span>
-                <span>{images.length} uploaded</span>
+                <span>{uploadedCount} / {form.colors.length} uploaded</span>
+              </div>
+            )}
+
+            {/* Mini image preview strip */}
+            {colorImages.some(Boolean) && (
+              <div className="apg-prev-img-strip">
+                {form.colors.map((color, i) => (
+                  colorImages[i] ? (
+                    <div key={color} className="apg-prev-img-thumb" title={color}>
+                      <img src={colorImages[i].url} alt={color} />
+                      <span
+                        className="apg-prev-img-dot"
+                        style={{ background: COLOR_SWATCHES[color] || "#888" }}
+                      />
+                    </div>
+                  ) : null
+                ))}
               </div>
             )}
           </div>

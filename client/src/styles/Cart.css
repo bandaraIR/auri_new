@@ -453,7 +453,6 @@
   transform: none;
 }
 
-
 /* ── Empty State ── */
 .cart-empty {
   display: flex;
@@ -481,7 +480,7 @@
   margin: 0;
 }
 
-/* ── Responsive ── */
+/* ── Responsive: Tablet (≤900px) ── */
 @media (max-width: 900px) {
   .cart-content {
     padding: calc(64px + 40px) 24px 60px;
@@ -506,5 +505,115 @@
 
   .cart-items-panel {
     padding: 28px 24px;
+  }
+}
+
+/* ── Responsive: Mobile (≤768px) ── */
+@media (max-width: 768px) {
+  /* Tighter page padding */
+  .cart-content {
+    padding: calc(64px + 24px) 16px 48px;
+  }
+
+  .cart-header {
+    margin-bottom: 32px;
+  }
+
+  /* Smaller title */
+  .cart-title {
+    font-size: 26px;
+  }
+
+  .cart-count {
+    font-size: 11px;
+  }
+
+  /* Stack cart item: image + info on row 1, qty + subtotal + trash on row 2 */
+  .cart-item {
+    flex-wrap: wrap;
+    gap: 14px 16px;
+    padding: 20px 0;
+    align-items: flex-start;
+  }
+
+  .cart-item-img {
+    width: 68px;
+    height: 88px;
+    flex-shrink: 0;
+  }
+
+  /* Info fills remaining width on row 1 */
+  .cart-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .cart-item-title {
+    font-size: 14px;
+  }
+
+  /* Row 2: qty left, subtotal centre-right, trash far right */
+  .cart-quantity {
+    order: 3;
+    flex-shrink: 0;
+  }
+
+  .cart-item-subtotal {
+    order: 4;
+    flex: 1;
+    font-size: 16px;
+    min-width: unset;
+    text-align: left;
+  }
+
+  .cart-remove-btn {
+    order: 5;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  /* Tighter panels */
+  .cart-items-panel {
+    padding: 18px 14px;
+  }
+
+  .cart-summary-panel {
+    padding: 24px 18px;
+  }
+
+  /* Email stays legible — wider max-width on small screens */
+  .cart-summary-email {
+    max-width: unset;
+    font-size: 12px;
+    flex: 1;
+    text-align: right;
+  }
+
+  /* Slightly smaller total figures */
+  .cart-summary-total span:first-child {
+    font-size: 17px;
+  }
+
+  .cart-summary-total span:last-child {
+    font-size: 21px;
+  }
+
+  /* Bank box stays readable */
+  .cart-bank-box {
+    font-size: 12px;
+    padding: 12px 12px;
+    line-height: 1.9;
+  }
+
+  /* Easier tap target on confirm button */
+  .cart-pay-btn {
+    margin-top: 24px;
+    padding: 16px 20px;
+    font-size: 11px;
+  }
+
+  /* Empty state */
+  .cart-empty h2 {
+    font-size: 28px;
   }
 }

@@ -141,11 +141,17 @@ export const CartProvider = ({ children }) => {
   };
 
   const getCartTotal = () => {
-    return state.items.reduce((total, item) => {
-      const price = parseFloat(item.price.replace('$', '').replace(',', ''));
-      return total + (price * item.quantity);
-    }, 0);
-  };
+  return state.items.reduce((total, item) => {
+    const rawPrice =
+      typeof item.price === "number"
+        ? item.price
+        : parseFloat(String(item.price).replace(/[^0-9.]/g, ""));
+
+    const price = isNaN(rawPrice) ? 0 : rawPrice;
+
+    return total + price * item.quantity;
+  }, 0);
+};
 
   const isInCart = (productId, size, color) => {
     return state.items.some(item => 
