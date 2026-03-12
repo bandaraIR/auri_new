@@ -442,14 +442,27 @@ export default function AdminDashboard() {
     } catch (e) { setError(e.message); }
   };
 
-  const logout = () => {
-    const confirmLogout = window.confirm("Are you sure you want to logout?");
-    if (!confirmLogout) return;
+  const logout = async () => {
+  const confirmLogout = window.confirm("Are you sure you want to logout?");
+  if (!confirmLogout) return;
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/login");
-  };
+  try {
+    await fetch(`${API}/api/auth/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+  } catch (error) {
+    console.error("Logout API error:", error);
+  }
+
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  sessionStorage.removeItem("token");
+  sessionStorage.removeItem("user");
+
+  navigate("/", { replace: true });
+  setTimeout(() => window.location.reload(), 100);
+};
 
   const handleNavClick = (id) => {
     setActiveTab(id);
