@@ -18,6 +18,8 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:3000",
   "https://auri-new.vercel.app",
+  "https://auri.lk",
+  "https://www.auri.lk",
 ];
 
 app.use(cors({
