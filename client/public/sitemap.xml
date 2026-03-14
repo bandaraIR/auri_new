@@ -2,27 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-  <loc>https://auri.lk/</loc>
+  <loc>https://www.auri.lk/</loc>
 </url>
 
 <url>
-  <loc>https://auri.lk/collection</loc>
+  <loc>https://www.auri.lk/login</loc>
 </url>
 
 <url>
-  <loc>https://auri.lk/about</loc>
-</url>
-
-<url>
-  <loc>https://auri.lk/contact</loc>
-</url>
-
-<url>
-  <loc>https://auri.lk/login</loc>
-</url>
-
-<url>
-  <loc>https://auri.lk/register</loc>
+  <loc>https://www.auri.lk/signup</loc>
 </url>
 
 </urlset>
