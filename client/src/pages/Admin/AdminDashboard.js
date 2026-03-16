@@ -28,7 +28,7 @@ const ICO = {
 };
 
 // ── Overview Tab ──────────────────────────────────────────────────────────────
-function OverviewTab({ me, users, navigate, productCount }) {
+function OverviewTab({ me, users, navigate, productCount, openOrders }) {
   const adminCount  = users.filter(u => u.role === "admin").length;
   const userCount   = users.filter(u => u.role !== "admin").length;
 
@@ -78,7 +78,7 @@ function OverviewTab({ me, users, navigate, productCount }) {
             </div>
             <Icon d={ICO.arrow} size={16} />
           </button>
-          <button className="ad-action-card" onClick={() => navigate("/admin/dashboard") || null}>
+          <button className="ad-action-card" onClick={openOrders}>
             <div className="ad-action-icon orders-icon"><Icon d={ICO.orders} size={20} /></div>
             <div className="ad-action-text">
               <strong>View Orders</strong>
@@ -549,6 +549,8 @@ export default function AdminDashboard() {
               users={users}
               navigate={navigate}
               productCount={loadingProducts ? "..." : productCount}
+              openOrders={() => setActiveTab("orders")}
+
             />
           )}
           {activeTab === "users" && (
