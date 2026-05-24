@@ -1,5 +1,5 @@
-// App.js - UPDATED VERSION
-import React from "react";
+// App.js - WITH FLOATING MUSIC BUTTON
+import React, { useState, useRef, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
@@ -23,6 +23,66 @@ import EditProduct from "./pages/Admin/EditProduct";
 import AdminRoute from "./routes/AdminRoute";
 import "./App.css";
 
+// ── Floating Music Button ─────────────────────────────────────────────────────
+const MusicButton = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    // Show button after 2 seconds
+    const timer = setTimeout(() => setIsVisible(true), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const toggleMusic = () => {
+    if (!audioRef.current) return;
+
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.current.play().catch(() => {});
+      setIsPlaying(true);
+    }
+  };
+
+  return (
+    <>
+      <audio ref={audioRef} src="/music/Silk Display.mp3" loop />
+
+      <button
+        onClick={toggleMusic}
+        title={isPlaying ? "Pause Music" : "Play Music"}
+        style={{
+          position:     "fixed",
+          bottom:       "30px",
+          right:        "30px",
+          width:        "48px",
+          height:       "48px",
+          borderRadius: "50%",
+          background:   "#000",
+          color:        "#fff",
+          border:       "none",
+          cursor:       "pointer",
+          display:      "flex",
+          alignItems:   "center",
+          justifyContent: "center",
+          fontSize:     "18px",
+          boxShadow:    "0 4px 20px rgba(0,0,0,0.3)",
+          zIndex:       9999,
+          opacity:      isVisible ? 1 : 0,
+          transform:    isVisible ? "scale(1)" : "scale(0.5)",
+          transition:   "opacity 0.5s ease, transform 0.5s ease",
+        }}
+      >
+        {isPlaying ? "⏸" : "♪"}
+      </button>
+    </>
+  );
+};
+
+// ── App Layout ────────────────────────────────────────────────────────────────
 function AppLayout() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
@@ -67,10 +127,14 @@ function AppLayout() {
       </Routes>
 
       {!isAdminRoute && <Footer />}
+
+      {/* Music button — hidden on admin pages */}
+      {!isAdminRoute && <MusicButton />}
     </div>
   );
 }
 
+// ── App ───────────────────────────────────────────────────────────────────────
 function App() {
   return (
     <AuthProvider>
