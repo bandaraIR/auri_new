@@ -1,16 +1,8 @@
 const Order = require("../models/Order");
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
-// ── Email transporter ─────────────────────────────────────────────────────────
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+// ── Resend email client ───────────────────────────────────────────────────────
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // ── Send order confirmation email ─────────────────────────────────────────────
 const sendOrderConfirmationEmail = async (order) => {
@@ -88,8 +80,8 @@ const sendOrderConfirmationEmail = async (order) => {
     </div>
   `;
 
-  await transporter.sendMail({
-    from: `"AURI OFFICIAL" <${process.env.EMAIL_USER}>`,
+  await resend.emails.send({
+    from: "AURI OFFICIAL <onboarding@resend.dev>",
     to: order.email,
     subject: "Your Auri Order is Confirmed! 🖤",
     html: emailHTML,
