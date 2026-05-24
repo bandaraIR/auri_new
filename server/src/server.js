@@ -1,9 +1,13 @@
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
 const session = require("express-session");
 const passport = require("passport");
 const initPassport = require("./config/passport");
+
+
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 console.log("Cloudinary loaded:", {
   cloud: process.env.CLOUDINARY_CLOUD_NAME,
